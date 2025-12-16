@@ -5,20 +5,34 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>公會捐款資料</title>
   <style>
-    :root{
-      --bg0:#070b14;
-      --bg1:#0b1220;
-      --card:#0d1627;
-      --card2:#0b1324;
-      --line:rgba(255,255,255,.08);
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.62);
-      --muted2:rgba(255,255,255,.48);
-      --accent:#ffb55a;
-      --accent2:#ff7a45;
-      --shadow: 0 18px 50px rgba(0,0,0,.45);
-      --radius:18px;
-    }
+.hero-gif{
+  display: block;
+  margin: 24px auto 8px;
+  max-width: 260px;
+  border-radius: 18px;
+  box-shadow: 0 14px 36px rgba(255,182,193,.35);
+}
+
+  :root{
+  --bg0:#fff6f8;
+  --bg1:#fbe9ef;
+
+  --card:#ffffff;
+  --card2:#fdf1f4;
+
+  --line:rgba(210,150,170,.25);
+
+ --text:#111111;
+--muted:#444444;
+--muted2:#666666;
+
+
+  --accent:#e39aa8;
+  --accent2:#d67b8c;
+
+  --shadow:0 18px 50px rgba(210,150,170,.25);
+  --radius:18px;
+}
 
     *{box-sizing:border-box}
     body{
@@ -26,9 +40,10 @@
       color:var(--text);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
       background:
-        radial-gradient(1000px 600px at 18% 8%, rgba(60,140,255,.12), transparent 55%),
-        radial-gradient(900px 540px at 75% 12%, rgba(255,140,80,.10), transparent 52%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
+  radial-gradient(1200px 600px at 20% -10%, #ffeef3 0%, transparent 60%),
+  radial-gradient(1000px 500px at 90% 10%, #f6dbe3 0%, transparent 55%),
+  linear-gradient(180deg, var(--bg0), var(--bg1));
+
       min-height:100vh;
     }
 
@@ -42,10 +57,14 @@
       backdrop-filter: blur(6px);
     }
     .chip.accent{
-      border-color:rgba(255,181,90,.45);
-      background:linear-gradient(180deg, rgba(255,181,90,.18), rgba(255,122,69,.06));
-      color:rgba(255,225,200,.95);
-    }
+  color:#111;
+  font-weight:600;
+  border:1px solid rgba(210,150,170,.45);
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.6), transparent 60%),
+    linear-gradient(180deg, #ffe4ec, #f7cdd9);
+}
+
 
     h1{font-size:34px;margin:10px 0 6px;letter-spacing:.5px}
     .subtitle{color:var(--muted);margin:0 0 22px;font-size:14px}
@@ -168,6 +187,44 @@
       background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.16), transparent 55%),
                   linear-gradient(180deg, rgba(255,160,120,.42), rgba(150,90,70,.14));
     }
+/* 🌸 櫻花排名圓章（覆蓋原本 badge 樣式） */
+.badge{
+  color:#7a2f45;
+  border:1px solid rgba(220,140,165,.55);
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), transparent 55%),
+    linear-gradient(180deg, #ffe8ef, #f6c9d7);
+  box-shadow:
+    0 4px 10px rgba(220,140,165,.35),
+    inset 0 0 0 1px rgba(255,255,255,.6);
+}
+
+/* 🥇 第一名：金粉櫻花 */
+.badge.gold{
+  color:#5c2a1a;
+  border-color: rgba(235,160,120,.7);
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), transparent 55%),
+    linear-gradient(180deg, #ffe6d6, #f5b28a);
+}
+
+/* 🥈 第二名：淡櫻灰 */
+.badge.silver{
+  color:#4a4a4a;
+  border-color: rgba(200,190,200,.7);
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), transparent 55%),
+    linear-gradient(180deg, #f4f2f5, #e3dbe3);
+}
+
+/* 🥉 第三名：櫻玫瑰粉 */
+.badge.bronze{
+  color:#6b2f3a;
+  border-color: rgba(220,140,165,.7);
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), transparent 55%),
+    linear-gradient(180deg, #ffdbe6, #f0a9bf);
+}
 
     /* Recent */
     .recent .thead, .recent .trow{
@@ -185,6 +242,25 @@
       color:rgba(255,255,255,.45);
       font-size:12px;
     }
+/* 亮底黑字修正 */
+.chip, .tab, select{ color: var(--text); }
+.chip{
+  border: 1px solid rgba(0,0,0,.08);
+  background: rgba(255,255,255,.55);
+}
+.tab{
+  border: 1px solid rgba(0,0,0,.08);
+  background: rgba(255,255,255,.5);
+}
+select{
+  background: rgba(255,255,255,.7);
+  border: 1px solid rgba(0,0,0,.12);
+}
+.select-wrap:after{ color: rgba(0,0,0,.55); }
+
+.thead{ color: var(--muted); }
+.date{ color: var(--muted); }
+.card-sub, .label, .footer-note{ color: var(--muted2); }
 
     a{color:inherit}
   </style>
@@ -198,7 +274,13 @@
     </div>
 
     <h1>櫻語沐雲｜ 公會捐款紀錄</h1>
-    <p class="subtitle">感謝每一位支持公會發展的冒險者，以下為 gil 捐款統計。</p>
+    <p class="subtitle">感謝每一位支持公會發展的肝の戰士，以下為 gil 捐款統計。</p>
+<img 
+  src="donate.gif" 
+  alt="公會捐款動畫"
+  class="hero-gif"
+/>
+
 
     <div class="grid">
       <!-- Left: Ranking -->
@@ -450,4 +532,3 @@
 </script>
 </body>
 </html>
-
