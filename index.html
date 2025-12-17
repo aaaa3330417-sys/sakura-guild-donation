@@ -289,7 +289,7 @@ select{
           <div>
             <h2 class="card-title">捐款總覽</h2>
             <div class="card-sub">顯示目前累積的捐款統計</div>
-
+<div class="card-sub" id="grandTotal">累積總額：載入中…</div>
           </div>
           <div class="controls">
             <span class="label">月份</span>
@@ -499,8 +499,14 @@ select{
       const data = await res.json();
 
       // data: { ranking: [{rank,name,total}], recent: [{date,name,amount}] }
-      renderRanking(data.ranking || []);
-      renderRecent(data.recent || []);
+      const ranking = data.ranking || [];
+renderRanking(ranking);
+renderRecent(data.recent || []);
+
+const sum = ranking.reduce((acc, x) => acc + Number(x.total || 0), 0);
+const gt = document.getElementById('grandTotal');
+if (gt) gt.textContent = `累積總額：${fmtGil(sum)}`;
+
     }catch(err){
       setStateText(els.rankingState, 'error', '載入失敗：' + (err?.message || err));
       setStateText(els.recentState, 'error', '載入失敗：' + (err?.message || err));
