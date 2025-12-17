@@ -13,24 +13,23 @@
   box-shadow: 0 14px 36px rgba(255,182,193,.35);
 }
 
-  :root{
-  --bg0:#fff6f8;
-  --bg1:#fbe9ef;
+:root{
+  --bg0:#0e1116;
+  --bg1:#1a202c;
 
   --card:#ffffff;
   --card2:#fdf1f4;
 
-  --line:rgba(210,150,170,.25);
+  --line:rgba(255,255,255,.12);
 
- --text:#111111;
---muted:#444444;
---muted2:#666666;
-
+  --text:rgba(255,255,255,.92);
+  --muted:rgba(255,255,255,.72);
+  --muted2:rgba(255,255,255,.55);
 
   --accent:#e39aa8;
   --accent2:#d67b8c;
 
-  --shadow:0 18px 50px rgba(210,150,170,.25);
+  --shadow:0 18px 50px rgba(0,0,0,.45);
   --radius:18px;
 }
 
@@ -39,10 +38,14 @@
       margin:0;
       color:var(--text);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-      background:
-  radial-gradient(1200px 600px at 20% -10%, #ffeef3 0%, transparent 60%),
-  radial-gradient(1000px 500px at 90% 10%, #f6dbe3 0%, transparent 55%),
-  linear-gradient(180deg, var(--bg0), var(--bg1));
+background:
+  radial-gradient(1200px 700px at 20% -10%, rgba(120,160,200,.18), transparent 60%),
+  radial-gradient(1000px 600px at 85% 10%, rgba(180,120,140,.14), transparent 55%),
+  linear-gradient(180deg,
+    #0e1116 0%,
+    #141922 45%,
+    #1a202c 100%
+  );
 
       min-height:100vh;
     }
@@ -67,6 +70,32 @@
 
 
     h1{font-size:34px;margin:10px 0 6px;letter-spacing:.5px}
+/* ❄️ 強化版霜凍標題（亮底也清楚） */
+.frozen-title{
+  font-size:34px;
+  margin:10px 0 6px;
+  letter-spacing:1.2px;
+  font-weight:900;
+
+  /* 冰霜本體 */
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #ffe1ea 35%,
+    #f2a8bd 60%,
+    #ffffff 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* 關鍵：深色輪廓 + 冷光 */
+  text-shadow:
+    0 1px 0 rgba(120,40,70,.55),      /* 下緣描邊 */
+    0 0 6px rgba(255,255,255,.9),     /* 冰霧 */
+    0 0 14px rgba(255,170,195,.75),   /* 粉霜光 */
+    0 6px 18px rgba(0,0,0,.35);       /* 底部陰影 */
+}
+
     .subtitle{color:var(--muted);margin:0 0 22px;font-size:14px}
 
     .grid{
@@ -262,8 +291,123 @@ select{
 .date{ color: var(--muted); }
 .card-sub, .label, .footer-note{ color: var(--muted2); }
 
-    a{color:inherit}
-  </style>
+a{color:inherit}
+
+/* ❄️ 自然背景雪（不跟滾輪） */
+body{
+  position: relative;
+}
+
+/* 左右雪幕 */
+/* ❄️ 自然背景雪（固定在視窗上，動背景位置更明顯） */
+body::before,
+body::after{
+  content:"";
+  position:fixed;            /* ← 改 fixed 比 absolute 更穩 */
+  top:0;
+  bottom:0;
+  width:26vw;
+  pointer-events:none;
+  z-index:1;
+  opacity:.6;
+
+  background-image:
+    radial-gradient(circle, rgba(230,245,255,.9) 1.4px, transparent 3px),
+    radial-gradient(circle, rgba(210,235,255,.7) 1.1px, transparent 2.6px),
+    radial-gradient(circle, rgba(190,220,250,.5) 1px, transparent 2.4px);
+
+  background-size:
+    110px 110px,
+    170px 170px,
+    240px 240px;
+
+  animation: snowBG 18s linear infinite;  /* ← 速度變快更有感 */
+}
+
+/* 左邊 */
+body::before{
+  left:0;
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 60%, transparent 100%);
+          mask-image: linear-gradient(to right, #000 0%, #000 60%, transparent 100%);
+}
+
+/* 右邊 */
+body::after{
+  right:0;
+  animation-duration: 24s; /* 右邊慢一點 */
+  -webkit-mask-image: linear-gradient(to left, #000 0%, #000 60%, transparent 100%);
+          mask-image: linear-gradient(to left, #000 0%, #000 60%, transparent 100%);
+}
+
+/* ✅ 用背景位置滾動，雪點會明顯往下飄 */
+@keyframes snowBG{
+  from{
+    background-position: 0 0, 40px 80px, 80px 30px;
+  }
+  to{
+    background-position: 0 260px, 40px 420px, 80px 560px;
+  }
+}
+
+@keyframes slowSnow{
+  from{ transform: translateY(0); }
+  to  { transform: translateY(120px); }
+}
+
+/* 內容一定在雪上面 */
+.wrap{
+  position:relative;
+  z-index:4;
+}
+/* ✨🎄 星星燈串（掛在頁面最上方） */
+/* ✨🎄 星星燈串（掛在頁面最上方，不蓋字） */
+.wrap::before{
+  content:"";
+  position:fixed;
+  left:0;
+  right:0;
+
+  top:-50px;     /* 往上推，避免蓋到標題 */
+  height:90px;   /* 燈串高度縮小 */
+
+  pointer-events:none;
+  z-index:6;
+
+  /* 一排暖色燈泡：用多個 radial-gradient 做出 bokeh 燈 */
+  background:
+    radial-gradient(circle at 8% 60%,  rgba(255,220,150,.95) 0 10px, transparent 12px),
+    radial-gradient(circle at 20% 40%, rgba(255,210,120,.85) 0 9px,  transparent 11px),
+    radial-gradient(circle at 34% 55%, rgba(255,235,180,.95) 0 11px, transparent 13px),
+    radial-gradient(circle at 48% 38%, rgba(255,200,120,.80) 0 9px,  transparent 11px),
+    radial-gradient(circle at 62% 58%, rgba(255,230,170,.95) 0 11px, transparent 13px),
+    radial-gradient(circle at 76% 42%, rgba(255,210,140,.85) 0 9px,  transparent 11px),
+    radial-gradient(circle at 90% 60%, rgba(255,235,190,.95) 0 11px, transparent 13px);
+
+  filter: drop-shadow(0 0 10px rgba(255,200,120,.35));
+  animation: fairyTwinkle 2.8s ease-in-out infinite;
+}
+
+@keyframes fairyTwinkle{
+  0%,100%{ opacity:.85; transform: translateY(0); }
+  50%{ opacity:1; transform: translateY(1px); }
+}
+/* ✅ 修正：深色頁面 + 白色卡片時，卡片內要用深色字 */
+.card{ color:#111; }
+.card .card-sub,
+.card .label,
+.card .footer-note{ color:#666; }
+.card .thead,
+.card .date{ color:#444; }
+
+/* 下拉選單在白色卡片上也要變深色 */
+.card select{
+  color:#111;
+  background: rgba(0,0,0,.04);
+  border: 1px solid rgba(0,0,0,.12);
+}
+.card .select-wrap:after{ color: rgba(0,0,0,.55); }
+
+</style>
 </head>
 <body>
   <div class="wrap">
@@ -273,7 +417,8 @@ select{
       <span class="chip">FFXIV</span>
     </div>
 
-    <h1>櫻語沐雲｜ 公會捐款紀錄</h1>
+    <h1 class="frozen-title">櫻語沐雲｜ 公會捐款紀錄</h1>
+
     <p class="subtitle">感謝每一位支持公會發展的肝の戰士，以下為 gil 捐款統計。</p>
 <img 
   src="donate.gif" 
