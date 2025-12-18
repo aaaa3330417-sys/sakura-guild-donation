@@ -607,6 +607,28 @@ select option{
     font-size: 12px;
   }
 }
+/* 🖥️ 只影響電腦版：金額欄置中，不影響手機 */
+@media (min-width: 781px){
+  #rankingTable .right{
+    justify-self: center;
+    text-align: center;
+  }
+}
+/* 🖥️ 電腦版：玩家名稱置中（不影響手機） */
+@media (min-width: 781px){
+  #rankingTable .name{
+    justify-self: center;
+    text-align: center;
+  }
+}
+/* 🖥️ 電腦版：第 2 欄（玩家名稱）整欄置中 */
+@media (min-width: 781px){
+  #rankingTable .thead > div:nth-child(2),
+  #rankingTable .trow  > div:nth-child(2){
+    justify-self: center;
+    text-align: center;
+  }
+}
 
 </style>
 </head>
