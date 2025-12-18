@@ -123,7 +123,7 @@ background:
       padding:18px 18px 10px;
       gap:12px;
     }
-    .card-title{font-size:18px;margin:0}
+    .card-title{font-size:16px;margin:0}
     .card-sub{margin:6px 0 0;color:var(--muted2);font-size:12px}
 
     .controls{display:flex;align-items:center;gap:10px}
@@ -180,14 +180,13 @@ background:
     }
     .thead{
       color:rgba(255,255,255,.6);
-      font-size:12px;
+      font-size:11px;
       padding-top:6px;
     }
     .trow{
       border-top:1px solid var(--line);
       border-radius:12px;
     }
-    .trow:hover{background:rgba(255,255,255,.03)}
     .right{justify-self:end}
     .name{font-weight:600}
     .amount{font-variant-numeric: tabular-nums}
@@ -391,21 +390,158 @@ body::after{
   0%,100%{ opacity:.85; transform: translateY(0); }
   50%{ opacity:1; transform: translateY(1px); }
 }
-/* ✅ 修正：深色頁面 + 白色卡片時，卡片內要用深色字 */
-.card{ color:#111; }
+/* 🌙 深色卡片（像你照片那種） */
+.card{
+  background: linear-gradient(180deg, rgba(10,14,24,.88), rgba(6,10,18,.78));
+  border: 1px solid rgba(255,255,255,.10);
+  color: rgba(255,255,255,.92);
+  box-shadow: 0 18px 50px rgba(0,0,0,.55);
+}
+
 .card .card-sub,
 .card .label,
-.card .footer-note{ color:#666; }
-.card .thead,
-.card .date{ color:#444; }
-
-/* 下拉選單在白色卡片上也要變深色 */
-.card select{
-  color:#111;
-  background: rgba(0,0,0,.04);
-  border: 1px solid rgba(0,0,0,.12);
+.card .footer-note{
+  color: rgba(255,255,255,.62);
 }
-.card .select-wrap:after{ color: rgba(0,0,0,.55); }
+
+.card .thead,
+.card .date{
+  color: rgba(255,255,255,.70);
+}
+
+/* 下拉在深色卡片上 */
+.card select{
+  color: rgba(255,255,255,.92);
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.14);
+}
+.card .select-wrap:after{ color: rgba(255,255,255,.65); }
+
+/* 📋 表格列：深淺交錯 + 分隔線 */
+.trow{
+  border-top: 1px solid rgba(255,255,255,.06);
+  border-radius: 12px;
+}
+
+/* 注意：因為 .thead 也算第一個孩子，所以第一列資料會從 even 開始 */
+/* ✅ 深淺交錯（thead 不會影響） */
+.table .trow:nth-of-type(odd){
+  background: linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.10));
+}
+.table .trow:nth-of-type(even){
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+}
+
+/* hover 提亮 */
+.table .trow:hover{
+  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+}
+
+/* 🖼 上方圖片左右並排、置中、整齊 */
+/* 🖼 上方圖片用「跟 grid 一樣」的兩欄 */
+.hero-row{
+  display:grid;
+  grid-template-columns: 1.15fr .85fr; /* ✅ 跟 .grid 一樣 */
+  gap:18px;                             /* ✅ 跟 .grid 一樣 */
+  align-items:center;
+  margin: 18px 0 12px;
+}
+
+/* 左邊：對齊捐款總覽（左欄） */
+.hero-left{
+  justify-self:start;
+}
+
+/* 右邊：貓咪放右欄置中（可選） */
+.hero-right{
+  display:flex;
+  justify-content:center;
+}
+
+/* 左邊公會合照：固定比例、裁切不變形 */
+/* 左邊公會合照：完整顯示、不裁圖、寬度對齊卡片 */
+.hero-side{
+  width: 100%;        /* 跟捐款總覽同寬 */
+  height: auto;       /* 高度交給圖片自己決定 */
+  object-fit: contain;/* ✅ 不裁切 */
+  border-radius: 18px;
+  display: block;
+}
+
+/* 右邊貓咪：維持原本大小 */
+.hero-center{
+  width: 260px;
+  max-width: 38vw;
+}
+
+/* 📱 手機 */
+@media (max-width: 780px){
+  .hero-side{ width: 92vw; max-width: 92vw; }
+  .hero-center{ width: 260px; max-width: 70vw; }
+}
+/* 🎯 左邊圖片對齊捐款總覽 */
+.hero-left{
+  max-width: 100%;
+}
+
+/* ✅ 覆蓋 hero-gif 的置中 + 260px 限制，讓左圖跟左邊卡片同寬 */
+.hero-left .hero-gif{
+  margin: 0;        /* 不要 auto 置中 */
+  max-width: none;  /* 取消 hero-gif 的 260px 限制 */
+  width: 100%;
+}
+/* ✅ 標題小一點 */
+.card-title{ font-size:15px; }
+
+/* ✅ 副標小一點 */
+.card-sub{ font-size:11px; }
+
+/* ✅ 表頭小一點 */
+.thead{ font-size:10.5px; }
+
+/* ✅ 每列內容小一點 */
+.trow{ font-size:12.5px; }
+
+/* ✅ 金額更精緻 */
+.amount{ font-size:12.5px; letter-spacing:.2px; }
+
+/* ✅ 更像遊戲 UI：左右暗角＋中間亮 */
+.table .trow{
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.25), rgba(255,255,255,.03) 45%, rgba(0,0,0,.22)),
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.08));
+}
+
+.table .trow:nth-of-type(even){
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.18), rgba(255,255,255,.06) 45%, rgba(0,0,0,.18)),
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.04));
+}
+.badge{
+  width:auto;height:22px;
+  padding:0 10px;
+  border-radius:999px;
+  display:inline-grid;place-items:center;
+  font-size:12px;font-weight:800;
+  color: rgba(255,255,255,.90);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 8px 18px rgba(0,0,0,.35);
+}
+/* 你原本的一堆 CSS 在上面 */
+
+/* ✅ footer 備註文字微調 */
+.footer-note{
+  font-size:11.5px;
+  letter-spacing:.3px;
+  opacity:.8;
+}
+/* ✅ 修正 select 下拉選單文字消失 */
+select option{
+  color: #111;          /* 黑字 */
+  background: #fff;     /* 白底 */
+}
+
 
 </style>
 </head>
@@ -420,11 +556,23 @@ body::after{
     <h1 class="frozen-title">櫻語沐雲｜ 公會捐款紀錄</h1>
 
     <p class="subtitle">感謝每一位支持公會發展的肝の戰士，以下為 gil 捐款統計。</p>
-<img 
-  src="donate.gif" 
-  alt="公會捐款動畫"
-  class="hero-gif"
-/>
+<div class="hero-row">
+  <div class="hero-left">
+    <img 
+      src="guild.jpg" 
+      alt="公會合照"
+      class="hero-gif hero-side"
+    />
+  </div>
+
+  <div class="hero-right">
+    <img 
+      src="donate.gif" 
+      alt="公會捐款動畫"
+      class="hero-gif hero-center"
+    />
+  </div>
+</div>
 
 
     <div class="grid">
@@ -455,30 +603,36 @@ body::after{
           <div class="loading" id="rankingState">載入中…</div>
         </div>
 
-        <div class="footer-note">※ 顯示為示意 UI；分隊資料需在 API 端提供 server/team 欄位才可真正分頁。</div>
+<div class="footer-note">
+※ 本頁面設計如有任何疑問，歡迎於 Discord 聯絡歐洛洛。
+</div>
       </section>
 
       <!-- Right: Recent -->
-      <section class="card recent">
-        <div class="card-head">
-          <div>
-            <h2 class="card-title">最近捐款紀錄</h2>
-            <div class="card-sub">顯示最近 20 筆已登記紀錄</div>
-          </div>
-        </div>
-
-        <div class="table" id="recentTable">
-          <div class="thead">
-            <div>日期時間</div>
-            <div>玩家</div>
-            <div class="right">金額</div>
-          </div>
-          <div class="loading" id="recentState">載入中…</div>
-        </div>
-      </section>
+<section class="card recent">
+  <div class="card-head">
+    <div>
+      <h2 class="card-title">最近捐款紀錄</h2>
+      <div class="card-sub">顯示最近 20 筆已登記紀錄</div>
+      <div class="card-sub">※ 時間以遊戲內捐款時間顯示</div>
     </div>
   </div>
 
+  <!-- ✅ 備註移到這裡：不會被 flex 擠壓 -->
+  <div class="footer-note">
+    ※ 此捐款紀錄表若有任何問題，請立即向會長／副會長／歐洛洛反應。
+  </div>
+
+<div class="table" id="recentTable">
+  <!-- ✅ 欄位標題（一定要有） -->
+  <div class="thead">
+    <div>日期時間</div>
+    <div>玩家</div>
+    <div class="right">金額</div>
+  </div>
+
+  <div class="loading" id="recentState">載入中…</div>
+</div>
 <script>
   // 1) https://script.google.com/macros/s/AKfycbxf5KQv2yqjJzyXU6mhHUajyA0IG5UbToORoEEClB_wx0arRMaPurJZz5bZHTo3ns9S/exec（回傳 JSON）
   // 例：https://script.google.com/macros/s/XXXX/exec
