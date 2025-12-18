@@ -482,6 +482,30 @@ body::after{
 @media (max-width: 780px){
   .hero-side{ width: 92vw; max-width: 92vw; }
   .hero-center{ width: 260px; max-width: 70vw; }
+  /* ✅ 最近捐款：手機版欄位改成更好擠的比例，金額不會被切 */
+  .recent .thead,
+  .recent .trow{
+    grid-template-columns: 7.5em 1fr 6.5em; /* 日期 / 名字 / 金額 */
+    gap: 8px;
+    padding-left: 10px;
+    padding-right: 14px; /* 右邊留空，避免金額貼邊被吃掉 */
+  }
+
+  .recent .amount{
+    white-space: nowrap;
+  }
+
+  .recent .name{
+    min-width: 0;
+    word-break: break-word;
+  }
+
+  .recent .date{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
 }
 /* 🎯 左邊圖片對齊捐款總覽 */
 .hero-left{
