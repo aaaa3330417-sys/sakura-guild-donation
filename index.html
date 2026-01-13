@@ -629,16 +629,112 @@ select option{
     text-align: center;
   }
 }
+/* ✅ chip 變連結但長一樣 */
+.chip-link{
+  cursor: pointer;
+  text-decoration: none;        /* 不要底線 */
+  display: inline-flex;         /* 跟 span 的排版一致 */
+  align-items: center;
+}
+
+/* hover 有一點「可點」的感覺 */
+.chip-link:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.72);
+}
+
+/* 鍵盤可用（無障礙）：Tab 選到時有外框 */
+.chip-link:focus-visible{
+  outline: 2px solid rgba(227,154,168,.85);
+  outline-offset: 2px;
+}
+/* 🔵 Discord 藍 chip + 置中排版 */
+a.chip.chip-discord{
+  color:#fff;
+  border: 1px solid rgba(88, 101, 242, .55);
+  background: linear-gradient(180deg, rgba(88,101,242,.92), rgba(88,101,242,.72));
+  box-shadow: 0 10px 22px rgba(88,101,242,.22);
+
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  line-height:1;
+}
+
+/* hover 更亮 */
+a.chip.chip-discord:hover{
+  background: linear-gradient(180deg, rgba(88,101,242,1), rgba(88,101,242,.78));
+  box-shadow: 0 14px 28px rgba(88,101,242,.28);
+  transform: translateY(-1px);
+}
+
+/* icon 徽章 */
+a.chip.chip-discord .discord-badge{
+  width:18px;height:18px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  background: rgba(255,255,255,.18);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.20);
+}
+
+/* icon 本體 */
+a.chip.chip-discord .discord-icon{
+  width:14px;height:14px;
+  display:block;
+  object-fit:contain;
+}
+/* ✅ 只修 DC 按鈕，不影響其他 chip */
+a.chip.chip-discord{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1;
+  padding: 6px 12px; /* 跟你原本 chip 一致 */
+}
+
+/* ✅ icon 變成小圓底徽章（穩定、不會歪） */
+a.chip.chip-discord .discord-icon{
+  width: 14px;
+  height: 14px;
+  margin: 0;               /* 用 gap 控距離 */
+  display: block;          /* 避免 baseline 問題 */
+  object-fit: contain;
+}
+
+/* 小圓底（可選但推薦） */
+a.chip.chip-discord .discord-badge{
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,.18);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.20);
+  flex: 0 0 auto;
+}
 
 </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="chips">
-      <span class="chip accent">公會捐款紀錄</span>
-      <span class="chip">櫻語沐雲</span>
-      <span class="chip">FFXIV</span>
-    </div>
+<div class="chips">
+  <span class="chip accent">公會捐款紀錄</span>
+
+  <a
+    class="chip chip-link chip-discord"
+    href="https://discord.gg/sakurawithinc1oud"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <span class="discord-badge">
+      <img src="discord.png" class="discord-icon" alt="Discord">
+    </span>
+    點擊加入櫻語沐雲DC群
+  </a>
+
+  <span class="chip">FFXIV</span>
+</div>
 
     <h1 class="frozen-title">櫻語沐雲｜ 公會捐款紀錄</h1>
 
